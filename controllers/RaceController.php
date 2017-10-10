@@ -2,7 +2,6 @@
 
 class RaceController
 {
-
     public function index()
     {
         $query = new QueryBuilder;

@@ -4,19 +4,15 @@ require 'Connection.php';
 
 class QueryBuilder
 {
-    
     private $pdo;
 
     public function __construct()
     {
-   
         $this->pdo = Connection::make();
-   
     }
 
     public function all($table)
     {
-   
         try {
    
             $statement = $this->pdo->prepare("SELECT * FROM {$table}");
@@ -30,12 +26,10 @@ class QueryBuilder
             die(var_dump($e->getMessage()));
    
         }
-   
     }
 
     public function insert($table, $values)
     {
-   
         $sql = sprintf(
             "INSERT INTO %s (%s) VALUES(%s)",
             $table,
@@ -54,7 +48,6 @@ class QueryBuilder
             die(var_dump($e->getMessage()));
         
         }
-    
     }
 
     public function delete()

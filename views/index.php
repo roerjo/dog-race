@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="UTF-8">
+    <base href="<?= $_ENV['BASE_URL']; ?>">
 
     <title>Dog Race</title>
 
