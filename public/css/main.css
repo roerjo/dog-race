@@ -3,7 +3,7 @@ html, body {
 	padding: 0;
 }
 
-h2 {
+h2, h4 {
 	text-align: center;
 }
 
@@ -22,35 +22,54 @@ button {
 
 .row {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
+}
+
+#addScores {
+    width: 100%;
+    display: flex;
+}
+
+#addScores div {
+    width: 30%;
+    margin: auto;
+}
+
+#addScores input {
+    display: block;
+    margin: auto;
+}
+
+#addScores label {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+#addScores .enter {
+    display: block;
+    margin: 10px auto;
+}
+
+#scores {
+    text-align: center;
 }
 
 
-/*--------- Add Section ---------*/ 
-
-
-#addTask {
-	background-color: #42f4f1;
-	margin: 15px 0;
-	padding: 15px 0;
+.enter {
+	background-color: #f4a041;
 }
 
-#addTask input {
-	display: block;
-	border: none;
-	height: 30px;
-	width: 250px;
-	margin: 10px 0;
+.delete {
+	background-color: #bc2020;
 }
 
+#roundScores {
+    float: left;
+}
 
-/*--------- Task Section ---------*/ 
-
-
-#tasks {
-	background-color: #41d0f4;
-	margin: 15px 0;
-	padding: 15px 0;
+#totalScores {
+    float: right;
 }
 
 th {
@@ -62,24 +81,3 @@ th, td {
     text-align: center;
 	padding: 10px 5px;
 }
-
-td form {
-	display: inline-block;
-}
-
-
-/*--------- Buttons ---------*/ 
-
-
-#enter {
-	background-color: #f4a041;
-}
-
-#delete {
-	background-color: #bc2020;
-}
-
-#success {
-	background-color: #0ba03d;
-}
-

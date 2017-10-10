@@ -7,8 +7,7 @@ $dotenv->load();
 
 require 'Router.php';
 require 'Request.php';
-require 'controllers/TaskController.php';
+require 'controllers/RaceController.php';
+require 'controllers/TeamController.php';
+require 'controllers/DogController.php';
 require 'database/QueryBuilder.php';
-
-
-

@@ -57,13 +57,12 @@ class QueryBuilder
     
     }
 
-    public function delete($table, $id)
+    public function delete()
     {
-    
         try {
     
             $statement = $this->pdo->prepare(
-                "DELETE FROM {$table} WHERE id = {$id}"
+                "truncate table scores"
             );
 
             $statement->execute();
@@ -75,33 +74,56 @@ class QueryBuilder
         }
     }
 
-    public function update($table, $values, $id)
+    public function getScores()
     {
-    
         try {
     
-            $sql = sprintf(
-                "UPDATE %s SET %s = %s, completed = 1 WHERE id = {$id}",
-                $table,
-                implode('', array_keys($values)),
-                ':' . implode('', array_keys($values))
-            );
+            $sql = "select 
+                        teams.name, 
+                        max(scores.round) as round, 
+                        sum(scores.score) as score 
+                    from teams
+                    join dogs on dogs.team_id = teams.id
+                    join scores on scores.dog_id = dogs.id
+
+                    group by scores.round, teams.name";
             
             $statement = $this->pdo->prepare($sql);
            
-            $statement->bindParam(
-                ':dateCompleted',
-                $values['dateCompleted'],
-                PDO::PARAM_STR
-            );
-           
             $statement->execute();
+            
+            return $statement->fetchAll(PDO::FETCH_CLASS);
     
         } catch (Exception $e) {
     
             die(var_dump($e->getMessage()));
     
         }
+    }
     
+    public function getTotals()
+    {
+        try {
+    
+            $sql = "select 
+                        teams.name, 
+                        sum(scores.score) as score 
+                    from teams
+                    join dogs on dogs.team_id = teams.id
+                    join scores on scores.dog_id = dogs.id
+
+                    group by teams.name";
+            
+            $statement = $this->pdo->prepare($sql);
+           
+            $statement->execute();
+            
+            return $statement->fetchAll(PDO::FETCH_CLASS);
+    
+        } catch (Exception $e) {
+    
+            die(var_dump($e->getMessage()));
+    
+        }
     }
 }

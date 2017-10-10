@@ -5,17 +5,9 @@
 
     <meta charset="UTF-8">
 
-    <title>Task Manager</title>
+    <title>Dog Race</title>
 
     <link rel="stylesheet" href="../public/css/main.css">
-
-    <style>
-        
-        th, td {
-            
-        }
-
-    </style>
 
 </head>
 
@@ -23,96 +15,160 @@
 
     <div class="container">
 
-        <section id="addTask">
+        <div class="row">
+        
+            <section id="addScores">
 
-            <h2>Add New Task</h2>
+                <div id="round1">
 
-            <div class="row">
+                    <h2>Round 1</h2>
 
-                <form action="/new" method="POST">
-                    
-                    <input type="text" name="title" placeholder="Title"/>
-                    
-                    <input type="text" name="description" placeholder="Description"/>
+                    <form action="/scores" method="POST">
 
-                    <button type="submit" id="enter">Add Task</button>
+                    <?php foreach ($dogs as $dog) : ?>
 
-                </form>
+                        <label for="score[<?= $dog->id; ?>]"><?= $dog->name; ?></label>
+                        <input type="text" id="score[<?= $dog->id; ?>]" name="score[<?= $dog->id; ?>]" placeholder="Score"required/>
 
-            </div>
+                        <input type="hidden" name="round" value="1">
+                        
+                    <?php endforeach; ?> 
+                        
+                    <button type="submit" class="enter">Submit Scores</button>
 
-        </section>
+                    </form>
+
+                </div>
+                
+                <div id="round2">
+
+                    <h2>Round 2</h2>
+
+                    <form action="/scores" method="POST">
+
+                    <?php foreach ($dogs as $dog) : ?>
+
+                        <label><?= $dog->name; ?></label>
+                        <input type="text" name="score[<?= $dog->id; ?>]" placeholder="Score"required/>
+
+                        <input type="hidden" name="round" value="2">
+                        
+                    <?php endforeach; ?> 
+                        
+                    <button type="submit" class="enter">Submit Scores</button>
+
+                    </form>
+
+                </div>
+                
+                <div id="round3">
+
+                    <h2>Round 3</h2>
+
+                    <form action="/scores" method="POST">
+
+                    <?php foreach ($dogs as $dog) : ?>
+
+                        <label><?= $dog->name; ?></label>
+                        <input type="text" name="score[<?= $dog->id; ?>]" placeholder="Score"required/>
+
+                        <input type="hidden" name="round" value="3">
+                        
+                    <?php endforeach; ?> 
+                        
+                    <button type="submit" class="enter">Submit Scores</button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </div>
         
 
-        <section id="tasks">
+        <section id="scores">
         
-            <h2>Tasks</h2>
+            <h2>Scores</h2>
+
+            <p>Reseting the scores with set all scores back to 0</p>
+            
+            <form action="/scores/reset" method="POST">
+
+                <button class="delete">Reset Scores</button>
+
+            </form>
 
             <div class="row">
-
-                <table>
                     
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Description</th>
-                            <th>Date Entered</th>
-                            <th>Completed</th>
-                            <th>Date Completed</th>
-                            <th></td>
-                        </tr>
-                    </thead>
+                <div id="roundScores">            
 
-                    <tbody>
-
-                        <?php foreach ($tasks as $task) : ?>
-
-                        <tr>    
-
-                            <td><?= $task->title; ?></td>
+                    <h4>Round Scores</h4>
+                    
+                    <table>
                         
-                            <td><?= $task->description; ?></td>
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Round</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
 
-                            <td><?= $task->dateEntered; ?></td>
+                        <tbody>
 
-                            <td>
-                        
-                                <?php if ($task->completed) : ?>
+                            <?php foreach ($roundScores as $score) : ?>
 
-                                    Done
+                            <tr>    
 
-                                <?php else : ?>
-
-                                    Not Completed
-
-                                <?php endif; ?>
+                                <td><?= $score->name; ?></td>
                             
-                            </td>
+                                <td><?= $score->round; ?></td>
 
-                            <td><?= $task->dateCompleted; ?></td>
+                                <td><?= $score->score; ?></td>
+                            
+                            </tr>
 
-                            <td>
-                                <form action="/complete/<?= $task->id; ?>" method="POST">
+                            <?php endforeach; ?>
 
-                                    <button id="success">Complete</button>
+                        </tbody>
 
-                                </form>
+                    </table>
 
-                                <form action="/delete/<?= $task->id; ?>" method="POST">
+                </div>
 
-                                    <button id="delete">Delete</button>
+                <div id="totalScores">
 
-                                </form> 
-
-                            </td>
+                    <h4>Total Scores</h4>
+                    
+                    <table>
                         
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Total Score</th>
+                            </tr>
+                        </thead>
 
-                        <?php endforeach; ?>
+                        <tbody>
 
-                    </tbody>
+                            <?php foreach ($totalScores as $total) : ?>
 
-                </table>
+                            <tr>    
+
+                                <td><?= $total->name; ?></td>
+                            
+                                <td><?= $total->score; ?></td>
+
+                            </tr>
+
+                            <?php endforeach; ?>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 

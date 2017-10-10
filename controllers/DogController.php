@@ -1,6 +1,6 @@
 <?php
 
-class TaskController
+class DogController
 {
 
     public function index()
@@ -8,7 +8,7 @@ class TaskController
         
         $query = new QueryBuilder;
         
-        $tasks = $query->all('tasks');
+        $tasks = $query->all('teams');
 
         require 'views/index.php'; 
 
@@ -17,25 +17,20 @@ class TaskController
 
     public function add()
     {
-        
-        $dateFormat = 'Y-m-d';
-        $date = date($dateFormat);
-        $title = $_REQUEST['title'];
-        $description = $_REQUEST['description']; 
+        $name = htmlspecialchars($_REQUEST['name']);
+        $team_id = htmlspecialchars($_REQUEST['team']);
 
-        $task = [
-            'title' => $title,
-            'description' => $description,
-            'completed' => (int) false,
-            'dateEntered' => $date
+        $dog = [
+            'name' => $name,
+            'score' => 0,
+            'team_id' => (int) $team_id,
         ];
 
         $query = new QueryBuilder;
          
-        $query->insert('tasks', $task);
+        $query->insert('dogs', $dog);
 
         header('Location: /');
-
     }
 
     public function delete($id)
@@ -69,3 +64,5 @@ class TaskController
     }
 
 } 
+
+
